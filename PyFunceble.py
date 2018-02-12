@@ -669,6 +669,20 @@ class API(object):
             return True
         return False
 
+    @classmethod
+    def single_test(cls, domain=None):
+        """
+        Run a test for a given domain.
+
+        Argument:
+            - domain, A string, the domain to test.
+        """
+
+        if domain is not None and not Settings.domain:
+            Settings.domain = domain
+
+        return ExpirationDate().get()
+
 
 class AutoContinue(object):
     """
@@ -1082,7 +1096,7 @@ class Prints(object):
         if not Settings.no_files \
             and self.output is not None \
                 and self.output != '' \
-        and not path.isfile(self.output):
+            and not path.isfile(self.output):
             link = ("# File generated with %s\n" % Settings.link_to_repo)
             date_of_generation = (
                 "# Date of generation: %s \n\n" %
@@ -2771,7 +2785,7 @@ if __name__ == '__main__':
             '-v',
             '--version',
             action='version',
-            version='%(prog)s 0.28.0-beta'
+            version='%(prog)s 0.28.1-beta'
         )
 
         ARGS = PARSER.parse_args()
