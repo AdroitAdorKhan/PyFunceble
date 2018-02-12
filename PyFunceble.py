@@ -678,7 +678,7 @@ class API(object):
             - domain, A string, the domain to test.
         """
 
-        if domain is not None and not Settings.domain:
+        if domain is not None:
             Settings.domain = domain
 
         return ExpirationDate().get()
@@ -2785,7 +2785,7 @@ if __name__ == '__main__':
             '-v',
             '--version',
             action='version',
-            version='%(prog)s 0.28.1-beta'
+            version='%(prog)s 0.28.2-beta'
         )
 
         ARGS = PARSER.parse_args()
