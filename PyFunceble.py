@@ -638,6 +638,38 @@ class PyFunceble(object):
         AutoSave(True)
 
 
+class API(object):
+    """
+    This class is one of many door to access PyFunceble functions.
+
+    Note:
+        This class has been suited in order to fill all the GUI needs.
+
+    Arguments:
+        - simple: A boolean, if False, the GUI may be in an unusable state.
+        - quiet: A boolean, if True, nothing is printed when running `npm start`.
+    """
+
+    def __init__(self, **args):
+        optional_arguments = {
+            'simple': True,
+            'quiet': ''
+        }
+
+        for (arg, default) in optional_arguments.items():
+            setattr(Settings, arg, args.get(arg, default))
+
+    @classmethod
+    def installation_required(cls):
+        """
+        Check if an installation is needed or not.
+        """
+
+        if Settings.current_dir in ['%%current_dir%%', '']:
+            return True
+        return False
+
+
 class AutoContinue(object):
     """
     Autocontinue logic/subsystem.
@@ -1050,7 +1082,7 @@ class Prints(object):
         if not Settings.no_files \
             and self.output is not None \
                 and self.output != '' \
-            and not path.isfile(self.output):
+        and not path.isfile(self.output):
             link = ("# File generated with %s\n" % Settings.link_to_repo)
             date_of_generation = (
                 "# Date of generation: %s \n\n" %
@@ -2739,7 +2771,7 @@ if __name__ == '__main__':
             '-v',
             '--version',
             action='version',
-            version='%(prog)s 0.27.2-beta'
+            version='%(prog)s 0.28.0-beta'
         )
 
         ARGS = PARSER.parse_args()
